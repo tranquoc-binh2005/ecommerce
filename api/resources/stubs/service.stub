@@ -1,0 +1,32 @@
+<?php
+namespace App\Services\Impl\{{namespace}};
+
+use App\Traits\Loggable;
+use App\Services\Interfaces\{{namespace}}\{{name}}ServiceInterface;
+use App\Services\Impl\BaseService;
+use App\Repositories\{{namespace}}\{{name}}Repositories;
+use Illuminate\Http\Request;
+class {{name}}Service extends BaseService implements {{name}}ServiceInterface{
+    use Loggable;
+
+    private $repositories;
+    private const CACHE_KEY_PREFIX = '{{snakeName}}s';
+
+    public function __construct(
+        {{name}}Repositories $repositories
+    ){
+        $this->repositories = $repositories;
+        $this->cacheKeyPrefix = self::CACHE_KEY_PREFIX;
+        parent::__construct($repositories);
+    }
+    protected function prepareModelData(Request $request): self
+    {
+        return $this->initializeBasicData( $request);
+    }
+
+    protected function initializeBasicData(Request $request): self{
+        $fillAble = $this->repositories->getFillAble();
+        $this->modelData = $request->only($fillAble);
+        return $this;
+    }
+}

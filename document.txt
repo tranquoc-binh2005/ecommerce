@@ -1,0 +1,4 @@
+Sử dụng VeeValidation và Vue Zod (quản lý các vấn đề validate trên form)
+Sử dụng piniaPluginPersistedstate để khi reload lại trang vẫn lưu được store
+
+Setup cau hinh trong VITE (Proxy) --> cau hinh trong vite.config.ts -> server
